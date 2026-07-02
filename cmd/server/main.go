@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/Hanningtone03/chess-engine-go/server"
 )
@@ -28,6 +29,11 @@ func main() {
 	http.HandleFunc("/api/move", withCORS(server.MoveHandler(store)))
 	http.HandleFunc("/api/engine-move", withCORS(server.EngineMoveHandler(store)))
 
-	log.Println("listening on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Printf("listening on :%s", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
