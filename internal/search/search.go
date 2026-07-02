@@ -43,7 +43,7 @@ func AlphaBetaTT(b *board.Board, tt *TranspositionTable, depth, alpha, beta int,
 	}
 
 	if depth == 0 {
-		return Evaluate(b)
+		return Quiescence(b, alpha, beta, nodes)
 	}
 
 	moves := orderMoves(b, b.LegalMoves())
@@ -90,7 +90,7 @@ func AlphaBeta(b *board.Board, depth, alpha, beta int, nodes *int) int {
 	*nodes++
 
 	if depth == 0 {
-		return Evaluate(b)
+		return Quiescence(b, alpha, beta, nodes)
 	}
 
 	moves := orderMoves(b, b.LegalMoves())
