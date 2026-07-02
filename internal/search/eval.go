@@ -47,6 +47,15 @@ func Evaluate(b *board.Board) int {
 		}
 	}
 
+	white += pawnStructureScore(b, board.White)
+	black += pawnStructureScore(b, board.Black)
+
+	white += kingSafetyScore(b, board.White)
+	black += kingSafetyScore(b, board.Black)
+
+	white += mobilityScore(b, board.White) * 2
+	black += mobilityScore(b, board.Black) * 2
+
 	score := white - black
 	if b.SideToMove == board.Black {
 		score = -score
