@@ -30,19 +30,16 @@ func pieceValue(pt board.PieceType) int {
 	}
 }
 
-// Evaluate scores a position from the perspective of the side to move:
-// positive means the side to move is better, negative means worse. This
-// convention (rather than always-white-positive) is what alpha-beta search
-// expects, since it lets the same comparison logic apply at every ply
-// regardless of whose turn it is.
 func Evaluate(b *board.Board) int {
+	endgame := isEndgame(b)
 	white, black := 0, 0
+
 	for sq := board.Square(0); sq < 64; sq++ {
 		p := b.PieceAt(sq)
 		if p.IsEmpty() {
 			continue
 		}
-		v := pieceValue(p.Type)
+		v := pieceValue(p.Type) + pstValue(p.Type, sq, p.Color, endgame)
 		if p.Color == board.White {
 			white += v
 		} else {
