@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080";
+const API_BASE = "https://chess-engine-vyyn.onrender.com";
 const SQUARE_SIZE = 70;
 const LIGHT = "#3a352c";
 const DARK = "#201e19";
