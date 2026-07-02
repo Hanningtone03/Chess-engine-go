@@ -2,7 +2,7 @@
 
 # chess-engine-go
 
-A chess engine built from scratch in Go — board representation, FEN parsing, and full pseudo-legal move generation, with alpha-beta search, Zobrist-hashed transposition tables, and a playable web frontend on the way.
+A chess engine built from scratch in Go; board representation, FEN parsing, and full pseudo-legal move generation, with alpha-beta search, Zobrist-hashed transposition tables, and a playable web frontend on the way.
 
 ## How it works
 
@@ -10,7 +10,7 @@ The board is stored as a flat 64-square array, each square holding a piece type 
 
 Move generation walks every occupied square on the board and dispatches by piece type: knights and kings use fixed offset tables, bishops/rooks/queens ray-cast outward along their movement directions until blocked by a piece or the board edge, and pawns get dedicated handling for single/double pushes, diagonal captures, en passant, and promotion to all four piece types.
 
-Legal move filtering — removing moves that would leave the mover's own king in check — is handled at the search layer rather than duplicated here, since check detection is needed there anyway for pruning.
+Legal move filtering; removing moves that would leave the mover's own king in check; is handled at the search layer rather than duplicated here, since check detection is needed there anyway for pruning.
 
 ## Project structure
 
@@ -36,11 +36,11 @@ Legal move filtering — removing moves that would leave the mover's own king in
 
 - [x] Board representation
 - [x] FEN parsing and serialization
-- [x] Pseudo-legal move generation — all pieces, castling, en passant, promotion
+- [x] Pseudo-legal move generation; all pieces, castling, en passant, promotion
 - [ ] Check detection and legal move filtering
 - [ ] Alpha-beta search with iterative deepening
 - [ ] Zobrist hashing and transposition table
-- [ ] Evaluation function — material, piece-square tables, king safety, pawn structure
+- [ ] Evaluation function; material, piece-square tables, king safety, pawn structure
 - [ ] HTTP API
 - [ ] Playable web frontend (HTML5 canvas board, drag-and-drop, adjustable difficulty)
 
