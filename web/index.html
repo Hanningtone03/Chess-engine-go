@@ -7,22 +7,30 @@
 </head>
 <body>
   <div class="layout">
+    <div class="captures-panel">
+      <h2>Black captured</h2>
+      <div id="capturedByBlack" class="captured-row"></div>
+      <h2>White captured</h2>
+      <div id="capturedByWhite" class="captured-row"></div>
+    </div>
+
     <div class="board-panel">
       <canvas id="board" width="560" height="560"></canvas>
       <div id="status" class="status">White to move</div>
     </div>
+
     <div class="side-panel">
       <h1>chess-engine-go</h1>
       <p class="subtitle">Go alpha-beta engine, playing as Black</p>
 
       <button id="newGameBtn">New Game</button>
 
-      <label for="thinkTime">Engine think time</label>
-      <select id="thinkTime">
-        <option value="500">0.5s</option>
-        <option value="1000" selected>1s</option>
-        <option value="3000">3s</option>
-        <option value="5000">5s</option>
+      <label for="difficulty">Difficulty</label>
+      <select id="difficulty">
+        <option value="500">Easy</option>
+        <option value="1500" selected>Medium</option>
+        <option value="4000">Hard</option>
+        <option value="10000">Master</option>
       </select>
 
       <h2>Moves</h2>

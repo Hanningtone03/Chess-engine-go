@@ -15,15 +15,16 @@ const ctx = canvas.getContext("2d");
 const statusEl = document.getElementById("status");
 const moveListEl = document.getElementById("moveList");
 const newGameBtn = document.getElementById("newGameBtn");
-const thinkTimeSelect = document.getElementById("thinkTime");
+const difficultySelect = document.getElementById("difficulty");
 const promoModal = document.getElementById("promoModal");
+const capturedByBlackEl = document.getElementById("capturedByBlack");
+const capturedByWhiteEl = document.getElementById("capturedByWhite");
 
 let gameId = null;
 let boardState = null;
 let selectedSquare = null;
 let legalTargets = [];
 let pendingPromotion = null;
-let playerIsWhite = true;
 
 function fenToBoard(fen) {
   const rows = fen.split(" ")[0].split("/");
@@ -126,6 +127,7 @@ async function refreshState() {
   boardState = await res.json();
   drawBoard();
   updateStatus();
+  updateCaptures();
 }
 
 function updateStatus() {
@@ -139,6 +141,15 @@ function updateStatus() {
   statusEl.textContent = boardState.in_check
     ? `${capitalize(boardState.side_to_move)} to move — check!`
     : `${capitalize(boardState.side_to_move)} to move`;
+}
+
+function updateCaptures() {
+  capturedByBlackEl.textContent = (boardState.captured_by_black || [])
+    .map((p) => PIECE_GLYPHS[p])
+    .join(" ");
+  capturedByWhiteEl.textContent = (boardState.captured_by_white || [])
+    .map((p) => PIECE_GLYPHS[p])
+    .join(" ");
 }
 
 function capitalize(s) {
@@ -171,6 +182,7 @@ async function playerMove(from, to, promotion) {
   legalTargets = [];
   drawBoard();
   updateStatus();
+  updateCaptures();
 
   if (!boardState.game_over) {
     await engineMove();
@@ -179,7 +191,7 @@ async function playerMove(from, to, promotion) {
 
 async function engineMove() {
   statusEl.textContent = "Engine thinking...";
-  const thinkMs = Number(thinkTimeSelect.value);
+  const thinkMs = Number(difficultySelect.value);
   const res = await fetch(`${API_BASE}/api/engine-move`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -190,11 +202,12 @@ async function engineMove() {
   logMove(data.move);
   drawBoard();
   updateStatus();
+  updateCaptures();
 }
 
 function isPromotionMove(from, to) {
-  const fromRank = Number(from[1]);
   const toRank = Number(to[1]);
+  const fromRank = Number(from[1]);
   const piece = pieceAt(from);
   return piece && piece.toLowerCase() === "p" && (toRank === 8 || toRank === 1) && fromRank !== toRank;
 }

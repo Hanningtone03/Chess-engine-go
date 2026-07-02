@@ -28,8 +28,35 @@ body {
 
 .layout {
   display: flex;
-  gap: 32px;
+  gap: 24px;
   padding: 32px;
+}
+
+.captures-panel {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.captures-panel h2 {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin: 8px 0 2px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.captured-row {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  min-height: 40px;
+  padding: 6px;
+  font-size: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
 }
 
 .board-panel {
