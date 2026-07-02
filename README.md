@@ -40,9 +40,9 @@ Legal move filtering; removing moves that would leave the mover's own king in ch
 - [x] Check detection and legal move filtering
 - [x] Alpha-beta search with iterative deepening
 - [x] Zobrist hashing and transposition table
-- [ ] Evaluation function; material, piece-square tables, king safety, pawn structure
-- [ ] HTTP API
-- [ ] Playable web frontend (HTML5 canvas board, drag-and-drop, adjustable difficulty)
+- [x] Evaluation function; material, piece-square tables, king safety, pawn structure
+- [x] HTTP API
+- [x] Playable web frontend (HTML5 canvas board, drag-and-drop, adjustable difficulty)
 
 ## Tech
 
