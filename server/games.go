@@ -9,8 +9,10 @@ import (
 )
 
 type Game struct {
-	Board *board.Board
-	TT    *search.TranspositionTable
+	Board           *board.Board
+	TT              *search.TranspositionTable
+	CapturedByWhite []string
+	CapturedByBlack []string
 }
 
 type GameStore struct {

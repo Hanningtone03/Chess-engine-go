@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>chess-engine-go</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <div class="board-panel">
+      <canvas id="board" width="560" height="560"></canvas>
+      <div id="status" class="status">White to move</div>
+    </div>
+    <div class="side-panel">
+      <h1>chess-engine-go</h1>
+      <p class="subtitle">Go alpha-beta engine, playing as Black</p>
+
+      <button id="newGameBtn">New Game</button>
+
+      <label for="thinkTime">Engine think time</label>
+      <select id="thinkTime">
+        <option value="500">0.5s</option>
+        <option value="1000" selected>1s</option>
+        <option value="3000">3s</option>
+        <option value="5000">5s</option>
+      </select>
+
+      <h2>Moves</h2>
+      <ol id="moveList" class="move-list"></ol>
+    </div>
+  </div>
+
+  <div id="promoModal" class="modal hidden">
+    <div class="modal-content">
+      <p>Promote to:</p>
+      <button data-promo="q">Queen</button>
+      <button data-promo="r">Rook</button>
+      <button data-promo="b">Bishop</button>
+      <button data-promo="n">Knight</button>
+    </div>
+  </div>
+
+  <script src="board.js"></script>
+</body>
+</html>

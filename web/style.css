@@ -1,0 +1,146 @@
+:root {
+  --bg: #14120f;
+  --panel: #1c1a16;
+  --border: #2e2a22;
+  --amber: #d99a3a;
+  --amber-dim: #8a6a2e;
+  --light-sq: #3a352c;
+  --dark-sq: #201e19;
+  --highlight: rgba(217, 154, 58, 0.45);
+  --text: #e8e2d4;
+  --text-dim: #a39c8a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.layout {
+  display: flex;
+  gap: 32px;
+  padding: 32px;
+}
+
+.board-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+canvas {
+  border: 2px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.status {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.side-panel {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0;
+  color: var(--amber);
+}
+
+.subtitle {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin: 0 0 12px 0;
+}
+
+h2 {
+  font-size: 14px;
+  color: var(--text-dim);
+  margin: 16px 0 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+button {
+  background: var(--amber);
+  color: #14120f;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--amber-dim);
+}
+
+select {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+label {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.move-list {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 8px 8px 8px 28px;
+  height: 300px;
+  overflow-y: auto;
+  font-size: 13px;
+  margin: 0;
+}
+
+.move-list li {
+  padding: 2px 0;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
