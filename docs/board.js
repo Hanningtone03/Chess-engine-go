@@ -6,7 +6,7 @@ const HIGHLIGHT = "rgba(217, 154, 58, 0.45)";
 const SELECTED = "rgba(217, 154, 58, 0.75)";
 
 const PIECE_GLYPHS = {
-  P: "♙", N: "♘", B: "♗", R: "♖", Q: "♕", K: "♔",
+  P: "♟", N: "♞", B: "♝", R: "♜", Q: "♛", K: "♚",
   p: "♟", n: "♞", b: "♝", r: "♜", q: "♛", k: "♚",
 };
 
@@ -95,11 +95,11 @@ function drawBoard() {
         const cx = x + SQUARE_SIZE / 2;
         const cy = y + SQUARE_SIZE / 2 + 2;
 
-        ctx.lineWidth = 3;
-        ctx.strokeStyle = isWhitePiece ? "#1a1712" : "#f5f0e4";
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = isWhitePiece ? "#3a3020" : "#000000";
         ctx.strokeText(glyph, cx, cy);
 
-        ctx.fillStyle = isWhitePiece ? "#f5f0e4" : "#1a1712";
+        ctx.fillStyle = isWhitePiece ? "#ffffff" : "#000000";
         ctx.fillText(glyph, cx, cy);
       }
     }
