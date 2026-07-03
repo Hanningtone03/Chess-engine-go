@@ -171,3 +171,13 @@ label {
   gap: 8px;
   align-items: center;
 }
+
+.piece-white {
+  color: #ffffff;
+  text-shadow: 0 0 1px #000, 0 0 1px #000;
+}
+
+.piece-black {
+  color: #000000;
+  -webkit-text-stroke: 1px #fff;
+}

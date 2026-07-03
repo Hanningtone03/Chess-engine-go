@@ -156,13 +156,20 @@ function updateStatus() {
     : `${capitalize(boardState.side_to_move)} to move`;
 }
 
+function renderCapturedRow(el, pieceLetters) {
+  el.innerHTML = "";
+  for (const letter of pieceLetters || []) {
+    const span = document.createElement("span");
+    const isWhitePiece = letter === letter.toUpperCase();
+    span.textContent = PIECE_GLYPHS[letter];
+    span.className = isWhitePiece ? "piece-white" : "piece-black";
+    el.appendChild(span);
+  }
+}
+
 function updateCaptures() {
-  capturedByBlackEl.textContent = (boardState.captured_by_black || [])
-    .map((p) => PIECE_GLYPHS[p])
-    .join(" ");
-  capturedByWhiteEl.textContent = (boardState.captured_by_white || [])
-    .map((p) => PIECE_GLYPHS[p])
-    .join(" ");
+  renderCapturedRow(capturedByBlackEl, boardState.captured_by_black);
+  renderCapturedRow(capturedByWhiteEl, boardState.captured_by_white);
 }
 
 function checkGameOver() {
