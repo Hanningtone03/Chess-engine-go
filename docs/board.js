@@ -19,12 +19,16 @@ const difficultySelect = document.getElementById("difficulty");
 const promoModal = document.getElementById("promoModal");
 const capturedByBlackEl = document.getElementById("capturedByBlack");
 const capturedByWhiteEl = document.getElementById("capturedByWhite");
+const winModal = document.getElementById("winModal");
+const winMessageEl = document.getElementById("winMessage");
+const winCloseBtn = document.getElementById("winCloseBtn");
 
 let gameId = null;
 let boardState = null;
 let selectedSquare = null;
 let legalTargets = [];
 let pendingPromotion = null;
+let gameOverHandled = false;
 
 function fenToBoard(fen) {
   const rows = fen.split(" ")[0].split("/");
@@ -83,14 +87,20 @@ function drawBoard() {
 
       const piece = grid[7 - rank][file];
       if (piece) {
-        ctx.fillStyle = piece === piece.toUpperCase() ? "#f0ead9" : "#1a1712";
-        ctx.strokeStyle = piece === piece.toUpperCase() ? "#1a1712" : "#f0ead9";
-        ctx.lineWidth = 1;
+        const isWhitePiece = piece === piece.toUpperCase();
         ctx.font = "48px serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         const glyph = PIECE_GLYPHS[piece];
-        ctx.fillText(glyph, x + SQUARE_SIZE / 2, y + SQUARE_SIZE / 2 + 2);
+        const cx = x + SQUARE_SIZE / 2;
+        const cy = y + SQUARE_SIZE / 2 + 2;
+
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = isWhitePiece ? "#1a1712" : "#f5f0e4";
+        ctx.strokeText(glyph, cx, cy);
+
+        ctx.fillStyle = isWhitePiece ? "#f5f0e4" : "#1a1712";
+        ctx.fillText(glyph, cx, cy);
       }
     }
   }
@@ -118,7 +128,9 @@ async function newGame() {
   gameId = data.game_id;
   selectedSquare = null;
   legalTargets = [];
+  gameOverHandled = false;
   moveListEl.innerHTML = "";
+  winModal.classList.add("hidden");
   await refreshState();
 }
 
@@ -128,6 +140,7 @@ async function refreshState() {
   drawBoard();
   updateStatus();
   updateCaptures();
+  checkGameOver();
 }
 
 function updateStatus() {
@@ -150,6 +163,19 @@ function updateCaptures() {
   capturedByWhiteEl.textContent = (boardState.captured_by_white || [])
     .map((p) => PIECE_GLYPHS[p])
     .join(" ");
+}
+
+function checkGameOver() {
+  if (!boardState.game_over || gameOverHandled) return;
+  gameOverHandled = true;
+
+  if (boardState.in_check) {
+    const winner = boardState.side_to_move === "white" ? "Black" : "White";
+    winMessageEl.textContent = `Checkmate — ${winner} wins`;
+  } else {
+    winMessageEl.textContent = "Stalemate — draw";
+  }
+  winModal.classList.remove("hidden");
 }
 
 function capitalize(s) {
@@ -183,6 +209,7 @@ async function playerMove(from, to, promotion) {
   drawBoard();
   updateStatus();
   updateCaptures();
+  checkGameOver();
 
   if (!boardState.game_over) {
     await engineMove();
@@ -203,6 +230,7 @@ async function engineMove() {
   drawBoard();
   updateStatus();
   updateCaptures();
+  checkGameOver();
 }
 
 function isPromotionMove(from, to) {
@@ -250,6 +278,10 @@ promoModal.addEventListener("click", (evt) => {
   promoModal.classList.add("hidden");
   playerMove(pendingPromotion.from, pendingPromotion.to, promo);
   pendingPromotion = null;
+});
+
+winCloseBtn.addEventListener("click", () => {
+  winModal.classList.add("hidden");
 });
 
 newGameBtn.addEventListener("click", newGame);
